@@ -7,7 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BlueYardDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. Add CORS (Allows Frontend to talk to this API)
+// 2. Add HttpClient for Python Analytics Microservice
+builder.Services.AddHttpClient("PythonService", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8000/");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+// 3. Add CORS (Allows Frontend to talk to this API)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -18,28 +25,27 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 3. Add Controllers and JSON Options
+// 4. Add Controllers and JSON Options
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Prevents circular reference loops when serializing relations
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-// 4. Add OpenAPI / Swagger (for testing)
+// 5. Add OpenAPI / Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
