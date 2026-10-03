@@ -1,0 +1,36 @@
+# Visual Studio / VS Code
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET / C# Build Outputs
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Database local logs
+*.mdf
+*.ldf
+*.log
+
+# Temporary test outputs
+TestResults/
