@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Yard Operations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- LIVE BACKGROUND: Yard Crane Operations -->
+    <div class="live-bg">
+        <svg class="live-bg-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            <!-- Ground surface -->
+            <rect x="0" y="500" width="1200" height="300" fill="rgba(10,26,51,0.3)"/>
+            <line x1="0" y1="500" x2="1200" y2="500" stroke="rgba(74,144,212,0.08)" stroke-width="1"/>
+
+            <!-- Container stacks -->
+            <g class="yard-bg-containers" opacity="0.15">
+                <rect x="100" y="420" width="50" height="25" fill="#4A90D4" rx="2"/>
+                <rect x="155" y="420" width="50" height="25" fill="#FF4D5E" rx="2"/>
+                <rect x="210" y="420" width="50" height="25" fill="#22D47F" rx="2"/>
+                <rect x="100" y="393" width="50" height="25" fill="#F5A623" rx="2"/>
+                <rect x="155" y="393" width="50" height="25" fill="#4A90D4" rx="2"/>
+
+                <rect x="400" y="430" width="50" height="25" fill="#22D47F" rx="2"/>
+                <rect x="455" y="430" width="50" height="25" fill="#FF4D5E" rx="2"/>
+                <rect x="510" y="430" width="50" height="25" fill="#F5A623" rx="2"/>
+                <rect x="400" y="403" width="50" height="25" fill="#4A90D4" rx="2"/>
+                <rect x="455" y="403" width="50" height="25" fill="#22D47F" rx="2"/>
+                <rect x="510" y="403" width="50" height="25" fill="#FF4D5E" rx="2"/>
+
+                <rect x="800" y="425" width="50" height="25" fill="#F5A623" rx="2"/>
+                <rect x="855" y="425" width="50" height="25" fill="#4A90D4" rx="2"/>
+                <rect x="910" y="425" width="50" height="25" fill="#22D47F" rx="2"/>
+                <rect x="800" y="398" width="50" height="25" fill="#FF4D5E" rx="2"/>
+            </g>
+
+            <!-- Moving Gantry Crane -->
+            <g class="yard-crane-moving">
+                <!-- Vertical legs -->
+                <rect x="580" y="150" width="5" height="350" fill="rgba(74,144,212,0.12)"/>
+                <rect x="660" y="150" width="5" height="350" fill="rgba(74,144,212,0.12)"/>
+                <!-- Horizontal boom -->
+                <rect x="500" y="145" width="250" height="6" fill="rgba(245,166,35,0.15)"/>
+                <!-- Cable -->
+                <line x1="625" y1="152" x2="625" y2="350" stroke="rgba(240,244,248,0.08)" stroke-width="1" class="crane-cable-yard"/>
+                <!-- Container being lifted -->
+                <rect x="605" y="350" width="40" height="20" fill="rgba(74,144,212,0.2)" rx="2" class="crane-load-yard"/>
+            </g>
+
+            <!-- Ground markings -->
+            <g opacity="0.06">
+                <rect x="80" y="460" width="200" height="1" fill="#7FB6E0"/>
+                <rect x="380" y="470" width="200" height="1" fill="#7FB6E0"/>
+                <rect x="780" y="465" width="200" height="1" fill="#7FB6E0"/>
+                <rect x="80" y="480" width="1100" height="1" fill="#4A90D4"/>
+            </g>
+        </svg>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand"><h1><span class="logo-mark">BY</span> Blue Yard</h1><p>Logistics Platform</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Control Tower</a>
+            <a href="yard.html" class="nav-item active"><i data-lucide="grid-3x3"></i> Yard Operations</a>
+            <a href="route.html" class="nav-item"><i data-lucide="route"></i> Route Planner</a>
+            <a href="history.html" class="nav-item"><i data-lucide="history"></i> Audit Timeline</a>
+            <div class="nav-section-label">System</div>
+            <a class="nav-item"><i data-lucide="settings"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> v1.0.0</div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="header-left"><h2>Yard Operations</h2></div>
+            <div class="header-right"><span class="header-timestamp" id="last-sync">Syncing...</span><div class="status-indicator"><span class="status-dot" id="status-dot"></span> <span id="status-text">Connected</span></div></div>
+        </header>
+        <div class="content">
+            <div class="section-heading"><div class="section-heading-left"><h3>Yard Storage Map</h3><p>Real-time 2D grid view of terminal slot allocation</p></div><button class="btn btn-ghost btn-sm" onclick="loadYardData()"><i data-lucide="refresh-cw"></i> Refresh</button></div>
+            <div class="legend-row">
+                <div class="legend-item"><div class="legend-swatch empty"></div> Unallocated</div>
+                <div class="legend-item"><div class="legend-swatch standard"></div> Standard Cargo</div>
+                <div class="legend-item"><div class="legend-swatch priority"></div> High Priority</div>
+            </div>
+            <div class="yard-container" id="terminals-grid-container"><div style="text-align:center;padding:40px;color:var(--text-muted);">Loading yard layout...</div></div>
+        </div>
+    </main>
+
+    <script src="js/yard.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

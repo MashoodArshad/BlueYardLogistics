@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Control Tower</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <!-- LIVE BACKGROUND: Control Tower Radar -->
+    <div class="live-bg">
+        <svg class="live-bg-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <radialGradient id="radarGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(74,144,212,0.06)"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <linearGradient id="sweepBeam" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="rgba(74,144,212,0.25)"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Radar ambient glow -->
+            <circle cx="500" cy="500" r="400" fill="url(#radarGlow)"/>
+
+            <!-- Concentric radar rings -->
+            <circle cx="500" cy="500" r="120" fill="none" stroke="rgba(74,144,212,0.06)" stroke-width="1"/>
+            <circle cx="500" cy="500" r="220" fill="none" stroke="rgba(74,144,212,0.05)" stroke-width="1"/>
+            <circle cx="500" cy="500" r="320" fill="none" stroke="rgba(74,144,212,0.04)" stroke-width="1"/>
+            <circle cx="500" cy="500" r="420" fill="none" stroke="rgba(74,144,212,0.03)" stroke-width="1"/>
+
+            <!-- Cross-hair lines -->
+            <line x1="500" y1="80" x2="500" y2="920" stroke="rgba(74,144,212,0.03)" stroke-width="1"/>
+            <line x1="80" y1="500" x2="920" y2="500" stroke="rgba(74,144,212,0.03)" stroke-width="1"/>
+
+            <!-- Rotating radar sweep beam -->
+            <g class="radar-sweep">
+                <polygon points="500,500 500,80 620,120" fill="url(#sweepBeam)" opacity="0.6"/>
+            </g>
+
+            <!-- Center tower dot -->
+            <circle cx="500" cy="500" r="6" fill="rgba(74,144,212,0.5)"/>
+            <circle cx="500" cy="500" r="3" fill="rgba(127,182,224,0.9)"/>
+
+            <!-- Radar blips -->
+            <circle cx="380" cy="320" r="3" fill="rgba(34,212,127,0.7)" class="radar-blip blip-1"/>
+            <circle cx="620" cy="400" r="3" fill="rgba(34,212,127,0.7)" class="radar-blip blip-2"/>
+            <circle cx="450" cy="650" r="3" fill="rgba(245,166,35,0.7)" class="radar-blip blip-3"/>
+            <circle cx="580" cy="280" r="2.5" fill="rgba(74,144,212,0.7)" class="radar-blip blip-4"/>
+            <circle cx="350" cy="550" r="2.5" fill="rgba(74,144,212,0.7)" class="radar-blip blip-5"/>
+        </svg>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h1><span class="logo-mark">BY</span> Blue Yard</h1>
+            <p>Logistics Platform</p>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="index.html" class="nav-item active"><i data-lucide="layout-dashboard"></i> Control Tower</a>
+            <a href="yard.html" class="nav-item"><i data-lucide="grid-3x3"></i> Yard Operations</a>
+            <a href="route.html" class="nav-item"><i data-lucide="route"></i> Route Planner</a>
+            <a href="history.html" class="nav-item"><i data-lucide="history"></i> Audit Timeline</a>
+            <div class="nav-section-label">System</div>
+            <a class="nav-item"><i data-lucide="settings"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> v1.0.0</div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="header-left"><h2>Control Tower</h2></div>
+            <div class="header-right">
+                <span class="header-timestamp" id="last-sync">Syncing...</span>
+                <div class="status-indicator"><span class="status-dot" id="status-dot"></span> <span id="status-text">Connected</span></div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="section-heading"><div class="section-heading-left"><h3>Operational Overview</h3><p>Real-time port operations snapshot</p></div></div>
+            <div class="kpi-strip" id="kpi-strip"></div>
+
+            <div class="section-heading"><div class="section-heading-left"><h3>Vessel Activity</h3><p>Berth status and operational notifications</p></div></div>
+            <div class="grid-2-1">
+                <div class="panel">
+                    <div class="panel-header"><span class="panel-title"><i data-lucide="ship"></i> Vessels at Berth</span></div>
+                    <div class="panel-body">
+                        <table class="data-table">
+                            <thead><tr><th>Vessel</th><th>Origin</th><th>Arrival</th><th>Status</th></tr></thead>
+                            <tbody id="vessels-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header"><span class="panel-title"><i data-lucide="bell"></i> Operational Alerts</span></div>
+                    <div class="panel-body">
+                        <ul class="alert-feed">
+                            <li class="alert-item"><span class="alert-dot info"></span><div><div class="alert-text"><strong>MV Ocean Star</strong> docked at Berth 1 with 6 containers.</div><div class="alert-time">Just now</div></div></li>
+                            <li class="alert-item"><span class="alert-dot critical"></span><div><div class="alert-text"><strong>C001 Medicine</strong> requires temperature-controlled handling.</div><div class="alert-time">2 min ago</div></div></li>
+                            <li class="alert-item"><span class="alert-dot warn"></span><div><div class="alert-text"><strong>Terminal Beta</strong> approaching capacity threshold.</div><div class="alert-time">5 min ago</div></div></li>
+                            <li class="alert-item"><span class="alert-dot success"></span><div><div class="alert-text"><strong>Vehicle V1</strong> cleared for dispatch from Gate 1.</div><div class="alert-time">8 min ago</div></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+                        <div class="section-heading">
+                <div class="section-heading-left">
+                    <h3>Cargo Manifest</h3>
+                    <p>Container inventory and optimization pipeline</p>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="loadDashboardData()"><i data-lucide="refresh-cw"></i> Refresh</button>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-body">
+                    <!-- HERE IS THE RESPONSIVE WRAPPER START -->
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Container</th>
+                                    <th>Cargo</th>
+                                    <th>Weight</th>
+                                    <th>Priority</th>
+                                    <th>Risk</th>
+                                    <th>Terminal</th>
+                                    <th>Yard Slot</th>
+                                    <th>Destination</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="containers-tbody"></tbody>
+                        </table>
+                    </div>
+                    <!-- HERE IS THE RESPONSIVE WRAPPER END -->
+                </div>
+            </div>
+
+            <div class="section-heading"><div class="section-heading-left"><h3>Performance Analytics</h3><p>Terminal utilization, risk distribution, and throughput</p></div></div>
+            <div class="grid-3">
+                <div class="panel"><div class="panel-header"><span class="panel-title"><i data-lucide="pie-chart"></i> Terminal Utilization</span></div><div class="panel-body padded"><div class="chart-wrap"><canvas id="chart-terminal"></canvas></div></div></div>
+                <div class="panel"><div class="panel-header"><span class="panel-title"><i data-lucide="bar-chart-3"></i> Cargo Risk Profile</span></div><div class="panel-body padded"><div class="chart-wrap"><canvas id="chart-risk"></canvas></div></div></div>
+                <div class="panel"><div class="panel-header"><span class="panel-title"><i data-lucide="activity"></i> Throughput (7 Days)</span></div><div class="panel-body padded"><div class="chart-wrap"><canvas id="chart-throughput"></canvas></div></div></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/dashboard.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

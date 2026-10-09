@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Audit Timeline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- LIVE BACKGROUND: Digital Data Stream -->
+    <div class="live-bg">
+        <div class="data-stream stream-1"></div>
+        <div class="data-stream stream-2"></div>
+        <div class="data-stream stream-3"></div>
+        <div class="data-stream stream-4"></div>
+        <div class="data-stream stream-5"></div>
+        <div class="data-stream stream-6"></div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand"><h1><span class="logo-mark">BY</span> Blue Yard</h1><p>Logistics Platform</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Control Tower</a>
+            <a href="yard.html" class="nav-item"><i data-lucide="grid-3x3"></i> Yard Operations</a>
+            <a href="route.html" class="nav-item"><i data-lucide="route"></i> Route Planner</a>
+            <a href="history.html" class="nav-item active"><i data-lucide="history"></i> Audit Timeline</a>
+            <div class="nav-section-label">System</div>
+            <a class="nav-item"><i data-lucide="settings"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> v1.0.0</div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="header-left"><h2>Cargo Traceability Ledger</h2></div>
+            <div class="header-right"><span class="header-timestamp" id="last-sync">Syncing...</span><div class="status-indicator"><span class="status-dot" id="status-dot"></span> <span id="status-text">Connected</span></div></div>
+        </header>
+        <div class="content">
+            <div class="section-heading"><div class="section-heading-left"><h3>Operational Audit Logs</h3><p>Chronological lifecycle ledger and digital footprint for containers</p></div></div>
+            <div class="grid-1-2">
+                <div class="panel">
+                    <div class="panel-header"><span class="panel-title"><i data-lucide="search"></i> Select Container Unit</span></div>
+                    <div class="panel-body padded">
+                        <div style="margin-bottom:24px;"><label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.3px;">Manifested Consignments</label><select id="history-container-selector" onchange="onContainerSelect()" style="width:100%;padding:10px 12px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;"><option value="">Select a container...</option></select></div>
+                        <div id="container-metadata-panel" style="display:none;border-top:1px solid var(--glass-border);padding-top:16px;"><span style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:12px;">Consignment Details</span><table class="data-table" style="box-shadow:none;border:none;width:100%;"><tbody style="background:transparent;"><tr><td style="padding:8px 0;border:none;color:var(--text-muted);">Cargo Category</td><td id="meta-cargo" style="padding:8px 0;border:none;text-align:right;font-weight:700;color:var(--text-white);">--</td></tr><tr><td style="padding:8px 0;border:none;color:var(--text-muted);">Total Weight</td><td id="meta-weight" style="padding:8px 0;border:none;text-align:right;font-weight:700;color:var(--text-white);font-variant-numeric:tabular-nums;">--</td></tr><tr><td style="padding:8px 0;border:none;color:var(--text-muted);">Declared Urgency</td><td style="padding:8px 0;border:none;text-align:right;"><span class="badge" id="meta-priority">--</span></td></tr><tr><td style="padding:8px 0;border:none;color:var(--text-muted);">Pipeline Stage</td><td style="padding:8px 0;border:none;text-align:right;"><span class="badge" id="meta-status">--</span></td></tr></tbody></table></div>
+                        <div id="history-placeholder-text" style="text-align:center;padding:30px 10px;color:var(--text-dim);font-size:12.5px;font-weight:500;">Select a container unit to load its operational timeline.</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header"><span class="panel-title"><i data-lucide="activity"></i> Audit Log Trail</span></div>
+                    <div class="panel-body padded" style="max-height:550px;overflow-y:auto;">
+                        <div class="timeline" id="timeline-container"><div style="text-align:center;padding:40px;color:var(--text-muted);">Select a container to trace its journey.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/history.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

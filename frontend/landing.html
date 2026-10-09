@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Intelligent Maritime Operations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/landing.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- ============== CINEMATIC MARITIME BACKGROUND ============== -->
+    <div class="scene">
+        <!-- Sky Layer with gradient atmosphere -->
+        <div class="scene-sky"></div>
+        
+        <!-- Distant atmospheric haze -->
+        <div class="scene-haze"></div>
+
+        <!-- Distant warehouses / port buildings on horizon -->
+        <svg class="scene-horizon" viewBox="0 0 1920 220" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="buildingGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#2A4668" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#1A2E4A" stop-opacity="0.95"/>
+                </linearGradient>
+            </defs>
+            <!-- Horizon warehouse silhouette -->
+            <polygon points="0,220 0,180 80,180 80,160 160,160 160,170 240,170 240,140 340,140 340,170 420,170 420,155 520,155 520,175 620,175 620,145 720,145 720,165 820,165 820,150 920,150 920,170 1020,170 1020,135 1120,135 1120,160 1220,160 1220,170 1320,170 1320,145 1420,145 1420,165 1520,165 1520,175 1620,175 1620,155 1720,155 1720,170 1820,170 1820,160 1920,160 1920,220" fill="url(#buildingGradient)"/>
+            <!-- Window lights -->
+            <g fill="#F5C97A" opacity="0.75">
+                <rect x="90" y="170" width="3" height="3"/>
+                <rect x="170" y="165" width="3" height="3"/>
+                <rect x="250" y="150" width="3" height="3"/>
+                <rect x="270" y="150" width="3" height="3"/>
+                <rect x="350" y="155" width="3" height="3"/>
+                <rect x="430" y="162" width="3" height="3"/>
+                <rect x="530" y="162" width="3" height="3"/>
+                <rect x="630" y="155" width="3" height="3"/>
+                <rect x="730" y="152" width="3" height="3"/>
+                <rect x="830" y="157" width="3" height="3"/>
+                <rect x="930" y="158" width="3" height="3"/>
+                <rect x="1030" y="145" width="3" height="3"/>
+                <rect x="1130" y="150" width="3" height="3"/>
+                <rect x="1230" y="162" width="3" height="3"/>
+                <rect x="1330" y="155" width="3" height="3"/>
+                <rect x="1430" y="155" width="3" height="3"/>
+                <rect x="1530" y="167" width="3" height="3"/>
+                <rect x="1630" y="162" width="3" height="3"/>
+                <rect x="1730" y="162" width="3" height="3"/>
+                <rect x="1830" y="162" width="3" height="3"/>
+            </g>
+        </svg>
+
+        <!-- Port cranes layer -->
+        <svg class="scene-cranes" viewBox="0 0 1920 400" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="craneGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#D97706"/>
+                    <stop offset="100%" stop-color="#92400E"/>
+                </linearGradient>
+            </defs>
+            
+            <!-- Crane 1 -->
+            <g class="crane crane-1">
+                <rect x="150" y="100" width="4" height="280" fill="#1A2E4A"/>
+                <rect x="180" y="100" width="4" height="280" fill="#1A2E4A"/>
+                <polygon points="100,100 230,100 215,80 115,80" fill="url(#craneGradient)"/>
+                <rect x="60" y="95" width="300" height="4" fill="#1A2E4A"/>
+                <!-- Hanging line -->
+                <line x1="200" y1="100" x2="200" y2="200" stroke="#1A2E4A" stroke-width="1" class="crane-cable"/>
+                <rect x="192" y="200" width="16" height="12" fill="#D97706" class="crane-container"/>
+            </g>
+            
+            <!-- Crane 2 -->
+            <g class="crane crane-2">
+                <rect x="450" y="80" width="4" height="300" fill="#1A2E4A"/>
+                <rect x="480" y="80" width="4" height="300" fill="#1A2E4A"/>
+                <polygon points="400,80 530,80 515,60 415,60" fill="url(#craneGradient)"/>
+                <rect x="360" y="75" width="300" height="4" fill="#1A2E4A"/>
+                <line x1="500" y1="80" x2="500" y2="250" stroke="#1A2E4A" stroke-width="1" class="crane-cable"/>
+                <rect x="492" y="250" width="16" height="12" fill="#D97706" class="crane-container"/>
+            </g>
+
+            <!-- Crane 3 -->
+            <g class="crane crane-3">
+                <rect x="1300" y="110" width="4" height="270" fill="#1A2E4A"/>
+                <rect x="1330" y="110" width="4" height="270" fill="#1A2E4A"/>
+                <polygon points="1250,110 1380,110 1365,90 1265,90" fill="url(#craneGradient)"/>
+                <rect x="1210" y="105" width="300" height="4" fill="#1A2E4A"/>
+                <line x1="1350" y1="110" x2="1350" y2="190" stroke="#1A2E4A" stroke-width="1" class="crane-cable"/>
+                <rect x="1342" y="190" width="16" height="12" fill="#D97706" class="crane-container"/>
+            </g>
+
+            <!-- Crane 4 -->
+            <g class="crane crane-4">
+                <rect x="1600" y="90" width="4" height="290" fill="#1A2E4A"/>
+                <rect x="1630" y="90" width="4" height="290" fill="#1A2E4A"/>
+                <polygon points="1550,90 1680,90 1665,70 1565,70" fill="url(#craneGradient)"/>
+                <rect x="1510" y="85" width="300" height="4" fill="#1A2E4A"/>
+                <line x1="1650" y1="90" x2="1650" y2="220" stroke="#1A2E4A" stroke-width="1" class="crane-cable"/>
+                <rect x="1642" y="220" width="16" height="12" fill="#D97706" class="crane-container"/>
+            </g>
+        </svg>
+
+        <!-- Container stacks on docks -->
+        <svg class="scene-containers" viewBox="0 0 1920 300" preserveAspectRatio="xMidYMid slice">
+            <!-- Container stack cluster 1 -->
+            <g>
+                <rect x="700" y="220" width="40" height="15" fill="#C4423D"/>
+                <rect x="740" y="220" width="40" height="15" fill="#2563EB"/>
+                <rect x="780" y="220" width="40" height="15" fill="#16A34A"/>
+                <rect x="700" y="205" width="40" height="15" fill="#D97706"/>
+                <rect x="740" y="205" width="40" height="15" fill="#C4423D"/>
+                <rect x="780" y="205" width="40" height="15" fill="#2563EB"/>
+            </g>
+            <!-- Container stack cluster 2 -->
+            <g>
+                <rect x="950" y="225" width="40" height="15" fill="#16A34A"/>
+                <rect x="990" y="225" width="40" height="15" fill="#D97706"/>
+                <rect x="1030" y="225" width="40" height="15" fill="#C4423D"/>
+                <rect x="950" y="210" width="40" height="15" fill="#2563EB"/>
+                <rect x="990" y="210" width="40" height="15" fill="#16A34A"/>
+            </g>
+            <!-- Container stack cluster 3 -->
+            <g>
+                <rect x="1100" y="230" width="40" height="15" fill="#D97706"/>
+                <rect x="1140" y="230" width="40" height="15" fill="#C4423D"/>
+                <rect x="1180" y="230" width="40" height="15" fill="#2563EB"/>
+                <rect x="1100" y="215" width="40" height="15" fill="#16A34A"/>
+                <rect x="1140" y="215" width="40" height="15" fill="#D97706"/>
+            </g>
+        </svg>
+
+        <!-- Moving vessel ship -->
+        <svg class="scene-vessel" viewBox="0 0 500 180" preserveAspectRatio="xMidYMid meet">
+            <!-- Vessel hull -->
+            <polygon points="20,110 480,110 460,140 40,140" fill="#1A2E4A"/>
+            <!-- Vessel deck -->
+            <rect x="30" y="90" width="440" height="20" fill="#2A4668"/>
+            <!-- Containers on deck -->
+            <g>
+                <rect x="60" y="60" width="24" height="30" fill="#C4423D"/>
+                <rect x="86" y="60" width="24" height="30" fill="#2563EB"/>
+                <rect x="112" y="60" width="24" height="30" fill="#16A34A"/>
+                <rect x="138" y="60" width="24" height="30" fill="#D97706"/>
+                <rect x="164" y="60" width="24" height="30" fill="#C4423D"/>
+                <rect x="190" y="60" width="24" height="30" fill="#2563EB"/>
+                <rect x="216" y="60" width="24" height="30" fill="#16A34A"/>
+                <rect x="242" y="60" width="24" height="30" fill="#D97706"/>
+                <rect x="268" y="60" width="24" height="30" fill="#C4423D"/>
+                <rect x="294" y="60" width="24" height="30" fill="#2563EB"/>
+                <rect x="320" y="60" width="24" height="30" fill="#16A34A"/>
+                <rect x="346" y="60" width="24" height="30" fill="#D97706"/>
+                <rect x="372" y="60" width="24" height="30" fill="#C4423D"/>
+                <rect x="398" y="60" width="24" height="30" fill="#2563EB"/>
+                <!-- Second row -->
+                <rect x="86" y="30" width="24" height="30" fill="#16A34A"/>
+                <rect x="112" y="30" width="24" height="30" fill="#D97706"/>
+                <rect x="138" y="30" width="24" height="30" fill="#2563EB"/>
+                <rect x="164" y="30" width="24" height="30" fill="#C4423D"/>
+                <rect x="190" y="30" width="24" height="30" fill="#16A34A"/>
+                <rect x="216" y="30" width="24" height="30" fill="#D97706"/>
+                <rect x="242" y="30" width="24" height="30" fill="#2563EB"/>
+                <rect x="268" y="30" width="24" height="30" fill="#C4423D"/>
+                <rect x="294" y="30" width="24" height="30" fill="#16A34A"/>
+                <rect x="320" y="30" width="24" height="30" fill="#D97706"/>
+            </g>
+            <!-- Captain bridge -->
+            <rect x="410" y="40" width="50" height="50" fill="#F0F4F8"/>
+            <rect x="420" y="50" width="30" height="6" fill="#2A4668"/>
+            <rect x="420" y="62" width="30" height="6" fill="#2A4668"/>
+            <!-- Antenna -->
+            <rect x="434" y="20" width="2" height="20" fill="#1A2E4A"/>
+            <!-- Nav light -->
+            <circle cx="435" cy="18" r="2" fill="#FFC847" class="vessel-light"/>
+        </svg>
+
+        <!-- Water surface -->
+        <div class="scene-water">
+            <div class="water-wave wave-1"></div>
+            <div class="water-wave wave-2"></div>
+            <div class="water-wave wave-3"></div>
+        </div>
+
+        <!-- Dark depth overlay for UI legibility -->
+        <div class="scene-overlay"></div>
+    </div>
+
+    <!-- ============== FLOATING NAVIGATION ============== -->
+    <nav class="landing-nav" id="landing-nav">
+        <div class="nav-brand">
+            <span class="nav-logo-mark">BY</span>
+            <div class="nav-brand-text">
+                <span class="nav-brand-title">BLUE YARD</span>
+                <span class="nav-brand-sub">LOGISTICS</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#operations">Operations</a></li>
+            <li><a href="#intelligence">Intelligence</a></li>
+            <li><a href="#platform">Platform</a></li>
+            <li><a href="#network">Network</a></li>
+        </ul>
+        <a href="index.html" class="nav-cta">
+            Control Tower
+            <i data-lucide="arrow-up-right"></i>
+        </a>
+    </nav>
+
+    <!-- ============== HERO CONTENT LAYER ============== -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            LIVE OPERATIONS · PORT OF KARACHI
+        </div>
+
+        <h1 class="hero-headline">
+            Intelligent Cargo Flow.<br>
+            <span class="hero-headline-accent">From Port to Destination.</span>
+        </h1>
+
+        <p class="hero-subline">
+            A unified maritime logistics platform combining data intelligence, 
+            optimization algorithms and operational visibility to improve cargo movement 
+            from vessel arrival to final delivery.
+        </p>
+
+        <div class="hero-actions">
+            <a href="index.html" class="btn-hero btn-hero-primary">
+                Enter Control Tower
+                <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="#platform" class="btn-hero btn-hero-ghost">
+                Explore Operations
+            </a>
+        </div>
+
+        <!-- Live Operations Floating Card -->
+        <div class="live-ops-card">
+            <div class="live-ops-header">
+                <span class="live-ops-title">LIVE PORT TELEMETRY</span>
+                <span class="live-dot"></span>
+            </div>
+            <div class="live-ops-grid">
+                <div class="live-ops-item">
+                    <span class="live-ops-label">Vessel Status</span>
+                    <span class="live-ops-value">MV Ocean Star · Docked</span>
+                </div>
+                <div class="live-ops-item">
+                    <span class="live-ops-label">Active Containers</span>
+                    <span class="live-ops-value value-accent">06 Units</span>
+                </div>
+                <div class="live-ops-item">
+                    <span class="live-ops-label">Yard Utilization</span>
+                    <div class="live-ops-bar">
+                        <div class="live-ops-bar-fill" style="width: 72%;"></div>
+                    </div>
+                    <span class="live-ops-value" style="font-size:11px;">72% of 12 slots</span>
+                </div>
+                <div class="live-ops-item">
+                    <span class="live-ops-label">Optimization Engine</span>
+                    <span class="live-ops-value value-green">Active · Dijkstra</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== CAPABILITIES SECTION ============== -->
+    <section class="capabilities" id="platform">
+        <div class="capabilities-inner">
+            <div class="section-eyebrow">PLATFORM CAPABILITIES</div>
+            <h2 class="section-title">End-to-end operational intelligence for modern ports</h2>
+            <p class="section-subtitle">
+                From vessel manifest to warehouse delivery, every container is tracked, 
+                optimized and intelligently routed through our unified decision engine.
+            </p>
+
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="ship"></i></div>
+                    <h3>Vessel Manifest</h3>
+                    <p>Automated cargo intake with weight validation and priority tagging at berth arrival.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="brain-circuit"></i></div>
+                    <h3>Cargo Intelligence</h3>
+                    <p>ML-powered risk assessment, dwell-time forecasting and priority scoring per container.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="grid-3x3"></i></div>
+                    <h3>Yard Optimization</h3>
+                    <p>Deterministic 2D grid slot allocation with proximity scoring for fast-track cargo.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="warehouse"></i></div>
+                    <h3>Warehouse Matching</h3>
+                    <p>Specialization-aware facility assignment based on cargo type and destination.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="truck"></i></div>
+                    <h3>Fleet Assignment</h3>
+                    <p>Weight-constrained vehicle allocation with cold-chain and specialized hauler matching.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="route"></i></div>
+                    <h3>Route Optimization</h3>
+                    <p>Dijkstra-based shortest-path routing across the full inland transport network.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== FINAL CTA ============== -->
+    <section class="final-cta">
+        <h2>Ready to see the complete workflow in action?</h2>
+        <p>Open the live operational control tower to track vessels, process containers and visualize routes.</p>
+        <a href="index.html" class="btn-hero btn-hero-primary">
+            Launch Control Tower
+            <i data-lucide="arrow-right"></i>
+        </a>
+    </section>
+
+    <footer class="landing-footer">
+        <span>© 2026 Blue Yard Logistics · Intelligent Maritime Operations</span>
+        <span>Version 1.0 · Production</span>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('landing-nav');
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>
