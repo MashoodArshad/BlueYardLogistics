@@ -1,0 +1,360 @@
+/* ============================================================
+   BLUE YARD LOGISTICS — Real-World Satellite Map Styles
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --navy-deepest: #050E1F;
+    --navy-deep: #0A1A33;
+    --glass-bg: rgba(10, 26, 51, 0.88);
+    --glass-border: rgba(240, 244, 248, 0.08);
+    --text-white: #F0F4F8;
+    --text-soft: rgba(240, 244, 248, 0.7);
+    --text-muted: rgba(240, 244, 248, 0.45);
+    --accent: #4A90D4;
+    --accent-glow: #7FB6E0;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+.map-body {
+    display: block !important;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-deepest);
+}
+
+/* Full-screen Map */
+#port-map {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 1;
+}
+
+/* Loading */
+.map-loading {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--navy-deepest);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 800ms ease;
+}
+
+.map-loading.hidden { opacity: 0; pointer-events: none; }
+
+.map-loading-inner { text-align: center; }
+
+.map-loading-logo {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, #2A66A8, #4A90D4);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 18px; font-weight: 800;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 32px rgba(74, 144, 212, 0.4);
+}
+
+.map-loading-title { font-size: 16px; font-weight: 800; color: var(--text-white); letter-spacing: 1px; }
+.map-loading-sub { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+.map-loading-bar {
+    width: 200px; height: 3px;
+    background: rgba(240,244,248,0.08);
+    border-radius: 2px; margin: 20px auto 0; overflow: hidden;
+}
+
+.map-loading-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #2A66A8, #4A90D4);
+    transition: width 400ms ease;
+}
+
+/* HUD Top */
+.map-hud-top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 52px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+    z-index: 500;
+}
+
+.map-hud-left { display: flex; align-items: center; gap: 16px; }
+
+.map-back-btn {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-soft); text-decoration: none;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 10px; border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    transition: all 200ms;
+}
+
+.map-back-btn:hover { background: rgba(240,244,248,0.06); color: var(--text-white); }
+.map-back-btn i { width: 14px; height: 14px; }
+
+.map-hud-title { font-size: 14px; font-weight: 700; color: var(--text-white); letter-spacing: -0.2px; }
+
+.map-hud-right { display: flex; align-items: center; gap: 16px; }
+
+.map-hud-mode {
+    font-size: 10px; font-weight: 700;
+    color: var(--accent-glow);
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    background: rgba(74,144,212,0.12);
+    border: 1px solid rgba(74,144,212,0.2);
+    border-radius: 4px;
+}
+
+.map-hud-time {
+    font-size: 12px; color: var(--text-muted);
+    font-variant-numeric: tabular-nums; font-weight: 500;
+}
+
+/* Style Switcher */
+.map-style-switcher {
+    position: fixed;
+    top: 64px; right: 16px;
+    display: flex; gap: 4px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 4px;
+    z-index: 500;
+}
+
+.style-btn {
+    padding: 6px 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.style-btn:hover { color: var(--text-white); }
+.style-btn.active { background: var(--accent); color: white; }
+
+/* Layers */
+.map-layers {
+    position: fixed;
+    top: 64px; left: 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    z-index: 500;
+    min-width: 180px;
+}
+
+.map-layers-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    font-size: 12px; font-weight: 700; color: var(--text-white);
+    cursor: pointer;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.map-layers-header i { width: 14px; height: 14px; }
+
+.map-layers-body {
+    padding: 8px 14px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+}
+
+.layer-toggle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; color: var(--text-soft);
+    cursor: pointer; font-weight: 500;
+}
+
+.layer-toggle input { accent-color: var(--accent); width: 13px; height: 13px; }
+
+/* Search */
+.map-search {
+    position: fixed;
+    top: 64px; left: 50%; transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 500; width: 300px;
+}
+
+.map-search i { width: 14px; height: 14px; color: var(--text-muted); }
+
+.map-search input {
+    background: transparent; border: none; outline: none;
+    color: var(--text-white); font-family: inherit;
+    font-size: 12px; font-weight: 500; width: 100%;
+}
+
+.map-search input::placeholder { color: rgba(240,244,248,0.3); }
+
+/* Info Panel */
+.map-info-panel {
+    position: fixed;
+    top: 110px; right: 16px;
+    width: 320px;
+    max-height: calc(100vh - 130px);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    z-index: 500;
+    overflow-y: auto;
+    display: none;
+}
+
+.map-info-panel.visible { display: block; animation: panelSlide 250ms ease-out; }
+
+@keyframes panelSlide {
+    from { opacity: 0; transform: translateX(12px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.map-info-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.map-info-header h3 { font-size: 14px; font-weight: 700; color: var(--text-white); }
+
+.map-info-close {
+    background: none; border: none;
+    color: var(--text-muted); cursor: pointer; padding: 4px;
+}
+
+.map-info-close i { width: 16px; height: 16px; }
+
+.map-info-body { padding: 16px; }
+
+.map-info-hint { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+.info-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(240,244,248,0.04);
+    font-size: 12px;
+}
+
+.info-label { color: var(--text-muted); font-weight: 500; }
+.info-value { color: var(--text-white); font-weight: 600; text-align: right; }
+
+.info-section {
+    font-size: 10px; font-weight: 700;
+    color: var(--accent-glow);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 14px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(74,144,212,0.15);
+}
+
+/* Custom Map Markers */
+.custom-marker {
+    cursor: pointer;
+    transition: transform 200ms;
+}
+
+.custom-marker:hover { transform: scale(1.15); }
+
+.marker-vessel {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #1A5BA0, #2A7AD4);
+    border: 2px solid white;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.marker-vessel i { transform: rotate(45deg); color: white; width: 16px; height: 16px; }
+
+.marker-warehouse {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #D97706, #F59E0B);
+    border: 2px solid white;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.marker-warehouse i { color: white; width: 16px; height: 16px; }
+
+.marker-terminal {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, #7C3AED, #9B7FE6);
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.marker-terminal i { color: white; width: 14px; height: 14px; }
+
+.marker-vehicle {
+    width: 26px; height: 26px;
+    background: linear-gradient(135deg, #16A34A, #22D47F);
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    animation: vehiclePulse 2s ease-in-out infinite;
+}
+
+.marker-vehicle i { color: white; width: 12px; height: 12px; }
+
+@keyframes vehiclePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,212,127,0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(34,212,127,0); }
+}
+
+.marker-label {
+    position: absolute;
+    bottom: -18px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+    background: rgba(0,0,0,0.7);
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+/* MapLibre popup override */
+.maplibregl-popup-content {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 8px !important;
+    color: var(--text-white) !important;
+    font-family: 'Inter', sans-serif !important;
+    padding: 12px 16px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+}
+
+.maplibregl-popup-tip { border-top-color: var(--glass-bg) !important; }
+
+.popup-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.popup-detail { font-size: 11.5px; color: var(--text-soft); line-height: 1.5; }

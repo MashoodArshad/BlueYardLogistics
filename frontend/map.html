@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Port Digital Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/map.css">
+    <link href="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="map-body">
+
+    <!-- Loading Screen -->
+    <div class="map-loading" id="map-loading">
+        <div class="map-loading-inner">
+            <div class="map-loading-logo">BY</div>
+            <div class="map-loading-title">BLUE YARD LOGISTICS</div>
+            <div class="map-loading-sub">Loading Satellite Imagery...</div>
+            <div class="map-loading-bar"><div class="map-loading-fill" id="load-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Top HUD -->
+    <div class="map-hud-top">
+        <div class="map-hud-left">
+            <a href="index.html" class="map-back-btn"><i data-lucide="arrow-left"></i> Dashboard</a>
+            <div class="map-hud-title">Port Digital Twin</div>
+        </div>
+        <div class="map-hud-right">
+            <div class="map-hud-mode" id="map-mode-label">SATELLITE</div>
+            <div class="map-hud-time" id="map-time"></div>
+        </div>
+    </div>
+
+    <!-- Map Style Switcher -->
+    <div class="map-style-switcher">
+        <button class="style-btn active" onclick="switchMapStyle('satellite')" id="btn-satellite">Satellite</button>
+        <button class="style-btn" onclick="switchMapStyle('streets')" id="btn-streets">Streets</button>
+        <button class="style-btn" onclick="switchMapStyle('dark')" id="btn-dark">Dark</button>
+    </div>
+
+    <!-- Layer Controls -->
+    <div class="map-layers" id="map-layers">
+        <div class="map-layers-header" onclick="toggleLayers()">
+            <i data-lucide="layers"></i> Layers
+        </div>
+        <div class="map-layers-body" id="layers-body">
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('vessels-layer', this.checked)"> Vessels</label>
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('terminals-layer', this.checked)"> Terminals</label>
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('warehouses-layer', this.checked)"> Warehouses</label>
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('vehicles-layer', this.checked)"> Vehicles</label>
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('routes-layer', this.checked)"> Routes</label>
+            <label class="layer-toggle"><input type="checkbox" checked onchange="toggleMapLayer('yard-layer', this.checked)"> Yard Blocks</label>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="map-search">
+        <i data-lucide="search"></i>
+        <input type="text" id="map-search-input" placeholder="Search vessel, container, warehouse...">
+    </div>
+
+    <!-- Info Panel -->
+    <div class="map-info-panel" id="map-info-panel">
+        <div class="map-info-header">
+            <h3 id="info-title">Select an Object</h3>
+            <button class="map-info-close" onclick="closeInfoPanel()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="map-info-body" id="info-body">
+            <p class="map-info-hint">Click any marker on the map to view operational details.</p>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div id="port-map"></div>
+
+    <script src="js/port-map.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

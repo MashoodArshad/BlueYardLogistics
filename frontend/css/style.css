@@ -1000,3 +1000,408 @@ select option {
 .table-responsive table {
     min-width: 900px; /* Force minimum width to guarantee columns look premium and spaced */
 }
+/* ============================================
+   FLEET COMMAND CENTER — Vehicle Cards & Detail Modal
+   ============================================ */
+
+.fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.fleet-card {
+    background: var(--glass-elevated);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    cursor: pointer;
+    transition: all var(--t-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fleet-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(74, 144, 212, 0.3);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.fleet-card.fleet-transit {
+    border-color: rgba(34, 212, 127, 0.2);
+}
+
+.fleet-card-visual {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vehicle-svg {
+    width: 180px;
+    height: 80px;
+}
+
+.fleet-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fleet-card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-white);
+    letter-spacing: -0.2px;
+}
+
+.fleet-card-class {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.fleet-card-stats {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.fleet-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    color: var(--text-soft);
+    font-weight: 500;
+}
+
+.fleet-stat i { width: 12px; height: 12px; stroke-width: 1.75; color: var(--text-dim); }
+
+/* --- Fleet Detail Modal --- */
+.fleet-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(5, 14, 31, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 200ms ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fleet-detail-card {
+    background: var(--glass-strong);
+    border: 1px solid var(--glass-border-strong);
+    border-radius: var(--radius-lg);
+    width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    animation: slideUp 300ms ease-out;
+}
+
+.fleet-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.fleet-detail-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.fleet-detail-body {
+    padding: 24px;
+}
+
+.fleet-detail-visual {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(5, 14, 31, 0.3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+}
+
+.fleet-detail-visual .vehicle-svg {
+    width: 240px;
+    height: 100px;
+}
+
+.fleet-detail-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 20px;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.spec-row:last-child { border-bottom: none; }
+
+.spec-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.spec-value {
+    font-size: 12.5px;
+    color: var(--text-white);
+    font-weight: 600;
+    text-align: right;
+}
+
+.fleet-detail-mission {
+    background: rgba(5, 14, 31, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+}
+
+.mission-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-glow);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* Fleet dispatch truck animation */
+.fleet-dispatch-truck {
+    animation: truckDrive 22s linear infinite;
+}
+
+@media (max-width: 1200px) {
+    .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .fleet-grid { grid-template-columns: 1fr; }
+    .fleet-detail-card { width: 95%; }
+}
+/* ============================================
+   WAREHOUSE HUB STYLES
+   ============================================ */
+
+.warehouse-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.warehouse-card {
+    background: var(--glass-elevated);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    cursor: pointer;
+    transition: all var(--t-smooth);
+}
+
+.warehouse-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(74, 144, 212, 0.3);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.wh-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.wh-icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wh-icon-badge i { width: 20px; height: 20px; stroke-width: 2; }
+
+.wh-card-id {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wh-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-white);
+    letter-spacing: -0.2px;
+}
+
+.wh-card-location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+}
+
+.wh-card-location i { width: 12px; height: 12px; color: var(--text-dim); }
+
+.wh-card-specialization {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.wh-utilization { margin-top: 10px; }
+
+.wh-util-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.wh-util-pct {
+    color: var(--text-white);
+    font-weight: 700;
+}
+
+.wh-util-numbers {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: right;
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Warehouse detail sections */
+.wh-detail-overview {
+    background: rgba(5, 14, 31, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 18px;
+}
+
+.wh-section {
+    margin-bottom: 20px;
+}
+
+.wh-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-glow);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.wh-section-title i { width: 14px; height: 14px; }
+
+.stock-list, .incoming-list, .comm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stock-item {
+    background: rgba(5, 14, 31, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+}
+
+.stock-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-cargo {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-white);
+}
+
+.stock-numbers {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+.incoming-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(5, 14, 31, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+}
+
+.comm-item {
+    display: flex;
+    gap: 10px;
+    background: rgba(5, 14, 31, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+}
+
+.comm-item .alert-dot { margin-top: 6px; }
+
+.warehouse-incoming-truck {
+    animation: truckDrive 20s linear infinite;
+}
+
+@media (max-width: 1200px) {
+    .warehouse-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .warehouse-grid { grid-template-columns: 1fr; }
+}

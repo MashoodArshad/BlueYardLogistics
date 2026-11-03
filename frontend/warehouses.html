@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Warehouse Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- LIVE BG: Warehouse Depot Scene -->
+    <div class="live-bg">
+        <svg class="live-bg-svg" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice">
+            <rect x="0" y="500" width="1400" height="300" fill="rgba(10,26,51,0.3)"/>
+            <!-- Warehouse building silhouettes -->
+            <g opacity="0.1">
+                <polygon points="100,500 100,350 300,350 300,320 500,320 500,500" fill="#4A90D4"/>
+                <polygon points="600,500 600,380 850,380 850,500" fill="#4A90D4"/>
+                <polygon points="950,500 950,340 1300,340 1300,500" fill="#4A90D4"/>
+                <!-- Loading bays -->
+                <rect x="150" y="450" width="40" height="50" fill="#0A1A33"/>
+                <rect x="250" y="450" width="40" height="50" fill="#0A1A33"/>
+                <rect x="350" y="450" width="40" height="50" fill="#0A1A33"/>
+                <rect x="650" y="430" width="40" height="70" fill="#0A1A33"/>
+                <rect x="750" y="430" width="40" height="70" fill="#0A1A33"/>
+                <rect x="1000" y="420" width="40" height="80" fill="#0A1A33"/>
+                <rect x="1100" y="420" width="40" height="80" fill="#0A1A33"/>
+            </g>
+            <!-- Incoming delivery truck -->
+            <g class="warehouse-incoming-truck">
+                <rect x="0" y="540" width="70" height="30" rx="3" fill="rgba(74,144,212,0.2)" stroke="rgba(74,144,212,0.3)"/>
+                <rect x="70" y="548" width="22" height="22" rx="2" fill="rgba(127,182,224,0.2)"/>
+                <circle cx="18" cy="573" r="5" fill="rgba(240,244,248,0.1)"/>
+                <circle cx="58" cy="573" r="5" fill="rgba(240,244,248,0.1)"/>
+                <circle cx="82" cy="573" r="4" fill="rgba(240,244,248,0.1)"/>
+                <circle cx="92" cy="556" r="2.5" fill="rgba(245,200,100,0.6)" class="truck-light"/>
+            </g>
+        </svg>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand"><h1><span class="logo-mark">BY</span> Blue Yard</h1><p>Logistics Platform</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Control Tower</a>
+            <a href="yard.html" class="nav-item"><i data-lucide="grid-3x3"></i> Yard Operations</a>
+            <a href="route.html" class="nav-item"><i data-lucide="route"></i> Route Planner</a>
+            <a href="fleet.html" class="nav-item"><i data-lucide="truck"></i> Fleet Command</a>
+            <a href="warehouses.html" class="nav-item active"><i data-lucide="warehouse"></i> Warehouse Hub</a>
+            <a href="history.html" class="nav-item"><i data-lucide="history"></i> Audit Timeline</a>
+            <div class="nav-section-label">System</div>
+            <a class="nav-item"><i data-lucide="settings"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> v1.0.0</div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="header-left"><h2>Warehouse Hub</h2></div>
+            <div class="header-right">
+                
+                <span class="header-timestamp" id="last-sync">Syncing...</span>
+                <div class="status-indicator"><span class="status-dot" id="status-dot"></span> <span id="status-text">Connected</span></div>
+                <a href="map.html" class="btn btn-ghost btn-sm" title="Port Digital Twin"><i data-lucide="globe"></i> 3D Map</a>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <div class="section-heading">
+                <div class="section-heading-left">
+                    <h3>Warehouse Network Overview</h3>
+                    <p>Real-time inventory status, incoming shipments, and port communications</p>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="loadWarehouseData()"><i data-lucide="refresh-cw"></i> Refresh</button>
+            </div>
+
+            <!-- Warehouse Cards Grid -->
+            <div class="warehouse-grid" id="warehouse-grid">
+                <div style="text-align:center;padding:40px;color:var(--text-muted);">Loading warehouse network...</div>
+            </div>
+
+            <!-- Detail Modal -->
+            <div class="fleet-detail-overlay" id="warehouse-detail-overlay" style="display:none;" onclick="closeWarehouseDetail(event)">
+                <div class="fleet-detail-card" id="warehouse-detail-card" style="width:620px;">
+                    <div class="fleet-detail-header">
+                        <h3 id="detail-wh-name">--</h3>
+                        <button class="btn btn-ghost btn-sm" onclick="closeWarehouseDetail()"><i data-lucide="x"></i></button>
+                    </div>
+                    <div class="fleet-detail-body" id="warehouse-detail-body"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/warehouses.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

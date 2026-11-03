@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Yard Logistics — Fleet Command</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- LIVE BACKGROUND: Fleet Depot Scene -->
+    <div class="live-bg">
+        <svg class="live-bg-svg" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice">
+            <!-- Depot ground -->
+            <rect x="0" y="500" width="1400" height="300" fill="rgba(10,26,51,0.3)"/>
+            <line x1="0" y1="500" x2="1400" y2="500" stroke="rgba(74,144,212,0.06)" stroke-width="1"/>
+
+            <!-- Parking lines -->
+            <g opacity="0.05">
+                <rect x="100" y="510" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="100" y="580" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="300" y="510" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="300" y="580" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="500" y="510" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="500" y="580" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="700" y="510" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="700" y="580" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="900" y="510" width="120" height="1" fill="#7FB6E0"/>
+                <rect x="900" y="580" width="120" height="1" fill="#7FB6E0"/>
+            </g>
+
+            <!-- Parked truck silhouettes -->
+            <g opacity="0.08">
+                <rect x="120" y="530" width="70" height="30" rx="3" fill="#4A90D4"/>
+                <rect x="190" y="538" width="22" height="22" rx="2" fill="#7FB6E0"/>
+                <circle cx="135" cy="563" r="5" fill="#4A90D4"/>
+                <circle cx="175" cy="563" r="5" fill="#4A90D4"/>
+
+                <rect x="520" y="525" width="75" height="35" rx="3" fill="#4A90D4"/>
+                <rect x="595" y="533" width="22" height="22" rx="2" fill="#7FB6E0"/>
+                <circle cx="535" cy="563" r="5" fill="#4A90D4"/>
+                <circle cx="580" cy="563" r="5" fill="#4A90D4"/>
+            </g>
+
+            <!-- Moving dispatch truck -->
+            <g class="fleet-dispatch-truck">
+                <rect x="0" y="535" width="65" height="28" rx="3" fill="rgba(74,144,212,0.15)" stroke="rgba(74,144,212,0.25)" stroke-width="1"/>
+                <rect x="65" y="542" width="20" height="21" rx="2" fill="rgba(127,182,224,0.15)"/>
+                <circle cx="15" cy="566" r="5" fill="rgba(240,244,248,0.08)"/>
+                <circle cx="52" cy="566" r="5" fill="rgba(240,244,248,0.08)"/>
+                <circle cx="75" cy="566" r="4" fill="rgba(240,244,248,0.08)"/>
+                <circle cx="86" cy="550" r="2.5" fill="rgba(245,200,100,0.5)" class="truck-light"/>
+            </g>
+        </svg>
+    </div>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand"><h1><span class="logo-mark">BY</span> Blue Yard</h1><p>Logistics Platform</p></div>
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">Operations</div>
+            <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Control Tower</a>
+            <a href="yard.html" class="nav-item"><i data-lucide="grid-3x3"></i> Yard Operations</a>
+            <a href="route.html" class="nav-item"><i data-lucide="route"></i> Route Planner</a>
+            <a href="fleet.html" class="nav-item active"><i data-lucide="truck"></i> Fleet Command</a>
+            <a href="warehouses.html" class="nav-item"><i data-lucide="warehouse"></i> Warehouse Hub</a>
+            <a href="history.html" class="nav-item"><i data-lucide="history"></i> Audit Timeline</a>
+            <div class="nav-section-label">System</div>
+            <a class="nav-item"><i data-lucide="settings"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer"><span class="status-dot"></span> v1.0.0</div>
+    </aside>
+
+    <main class="main">
+        <header class="header">
+            <div class="header-left"><h2>Fleet Command Center</h2></div>
+            <div class="header-right">
+                <span class="header-timestamp" id="last-sync">Syncing...</span>
+                <div class="status-indicator"><span class="status-dot" id="status-dot"></span> <span id="status-text">Connected</span></div>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <div class="section-heading">
+                <div class="section-heading-left">
+                    <h3>Transport Fleet Registry</h3>
+                    <p>Click on any vehicle to view its live operational assignment and transit details</p>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="loadFleetData()"><i data-lucide="refresh-cw"></i> Refresh</button>
+            </div>
+
+            <!-- Vehicle Cards Grid -->
+            <div class="fleet-grid" id="fleet-grid">
+                <div style="text-align:center; padding:40px; color:var(--text-muted);">Loading fleet registry...</div>
+            </div>
+
+            <!-- Vehicle Detail Modal (Hidden by default) -->
+            <div class="fleet-detail-overlay" id="fleet-detail-overlay" style="display:none;" onclick="closeFleetDetail(event)">
+                <div class="fleet-detail-card" id="fleet-detail-card">
+                    <div class="fleet-detail-header">
+                        <h3 id="detail-vehicle-name">--</h3>
+                        <button class="btn btn-ghost btn-sm" onclick="closeFleetDetail()"><i data-lucide="x"></i></button>
+                    </div>
+                    <div class="fleet-detail-body" id="fleet-detail-body">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/fleet.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -10,6 +10,8 @@ namespace backend.Data
         }
 
         public DbSet<Vessel> Vessels { get; set; }
+        public DbSet<WarehouseStock> WarehouseStock { get; set; }
+public DbSet<WarehouseCommunication> WarehouseCommunication { get; set; }
         public DbSet<Container> Containers { get; set; }
         public DbSet<Terminal> Terminals { get; set; }
         public DbSet<YardSlot> YardSlots { get; set; }
@@ -77,6 +79,25 @@ namespace backend.Data
                 entity.HasOne(h => h.Container)
                       .WithMany(c => c.HistoryLogs)
                       .HasForeignKey(h => h.ContainerID)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+                        // WarehouseStock Configuration
+            modelBuilder.Entity<WarehouseStock>(entity =>
+            {
+                entity.ToTable("WarehouseStock").HasKey(w => w.StockID);
+                entity.HasOne(w => w.Warehouse)
+                      .WithMany() // <-- Isko empty WithMany() rakhna hai taake Warehouse.cs me property na banani pare
+                      .HasForeignKey(w => w.WarehouseID)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // WarehouseCommunication Configuration
+            modelBuilder.Entity<WarehouseCommunication>(entity =>
+            {
+                entity.ToTable("WarehouseCommunication").HasKey(w => w.MessageID);
+                entity.HasOne(w => w.Warehouse)
+                      .WithMany() // <-- Isko bhi empty WithMany() kar dein
+                      .HasForeignKey(w => w.WarehouseID)
                       .OnDelete(DeleteBehavior.Cascade);
             });
 

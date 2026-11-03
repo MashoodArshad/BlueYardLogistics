@@ -180,7 +180,7 @@ body {
     width: 500px;
     height: 180px;
     opacity: 0.95;
-    animation: vesselSail 120s linear infinite;
+    animation: vesselSail 25s linear infinite;
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
 }
 
